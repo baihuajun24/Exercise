@@ -28,35 +28,31 @@ public class Problem1 {
                 break;
             }
         }
-        
-        // System.out.println(Arrays.toString(numbers));
         System.out.println(findnumber(numbers));
 	}
 	
 	public static int findnumber(int[] input){
 		Hashtable<Integer, Integer> hastbl
 	     = new Hashtable<Integer, Integer>();
+		Hashtable<Integer, Integer> repeated
+	     = new Hashtable<Integer, Integer>();
 		// key is the integer from input
-		// value is the number of times it already appears
+		// value is a dummy variable, always set to 1 if a key exists
 	    for(int i=0;i<input.length;i++){
-	    	if (hastbl.containsKey(input[i]))
-	    		hastbl.put(input[i], hastbl.get(input[i])+1);
+	    	if (hastbl.containsKey(input[i])||repeated.containsKey(input[i])){
+	    		hastbl.remove(input[i]);
+	    	    repeated.put(input[i],1);
+	    	}
 	    	else
 	    		hastbl.put(input[i], 1);
-	    	if (3*hastbl.size()>input.length)
-	    		break;
 	    }
 	    // System.out.println(hastbl.values());
 		
 	  //finding key corresponding to value in hashtable
-	  int findvalue = 0;
-	    for(int i=0;i<input.length;i++){
-	    	if (hastbl.get(input[i])==1){
-	    		findvalue = input[i];
-	    		break;
-	    	}
-	    }
-	  return findvalue;
+	  int result = -1;
+	  for (int i:hastbl.keySet())
+		  result = i;
+	  return result;
 	}
 
 }
